@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Attendance</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            word-spacing: 3px;
+            letter-spacing: 1px;
+            background-color: rgb(206, 190, 160);
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            padding: 10px 0;
+            background-color: rgb(163, 138, 92);
+            box-shadow: 0px 0px 15px rgb(114, 98, 69) inset;
+            display: flex;
+            gap: 15px;
+            /* justify-content: center; */
+            align-items: center;
+        }
+
+        header img {
+            width: 120px;
+            margin-left: 60px;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            color: white;
+        }
+
+        header h2 {
+            text-align: center;
+            background: linear-gradient(to right, #2d6ba1, #111f9f);
+            color: white;
+            font-size: 1.5em;
+            padding: 15px;
+        }
+
+        /* h2 {
+            color: #004080;
+        } */
+
+        .form-container,
+        .table-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            margin-right: 10px;
+            width: 180px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #004080;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0066cc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 12px;
+            text-align: center;
+            background-color: white;
+        }
+
+        th {
+            background-color: #e6f0ff;
+            color: #004080;
+            font-size: 20px;
+        }
+
+        .checkbox-cell input {
+            transform: scale(1.5);
+        }
+
+        .one {
+            margin: 0 75px;
+            background-color: #d3d3d3a8;
+            padding: 0 30px 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(28, 28, 28, 0.748);
+        }
+
+        .class-info {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .last-btns {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        footer {
+            margin: 50px 0;
+            padding: 25px 75px;
+            background-color: rgb(163, 138, 92);
+            color: white;
+            box-shadow: 0px 0px 15px rgb(114, 98, 69) inset;
+            font-size: 1em;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .social-media {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-media i {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <img src="ABGI_logo.png" alt="">
+        <div class="college_name">
+            <h1>AMAN BHALLA INSTITUTE OF ENGINEERING & TECHNOLOGY, KOTLI</h1>
+            <h2>Attendance Management System</h2>
+        </div>
+    </header>
+
+    <br><br>
+
+
+    <div class="one">
+
+        <div class="class-info">
+            <p>Subject : Microprocessor & Microcontroller</p>
+            <p>B.Tech(CSE) 6th Semester </p>
+        </div>
+
+        <!-- Form to add student -->
+        <div class="form-container">
+            <h2>Add Student</h2><br>
+            <input type="text" id="studentName" placeholder="Student Name" />
+            <input type="text" id="branch" placeholder="Branch" />
+            <input type="text" id="rollNo" placeholder="Roll No" />
+            <button onclick="addStudent()">Add Student</button>
+        </div>
+
+        <!-- Attendance Table -->
+        <table id="attendanceTable">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Branch</th>
+                    <th>Roll No</th>
+                    <th>Present</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <br>
+
+        <div class="last-btns">
+            <button onclick="submitAttendance()">Submit Attendance</button>
+            <button onclick="back()">Back</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-media">
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-x-twitter"></i>
+        </div>
+        <p>Design & Developed by <span style="color: rgb(246, 203, 147); text-decoration: underline;">VIJAY
+                SHARMA</span>
+        </p>
+        <p>Copyright <i class="fa-regular fa-copyright"></i> 2025 All rights reserved</p>
+
+    </footer>
+
+
+    <script>
+        function fetchStudents() {
+            fetch('get_students_mpmc.php')
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.querySelector("#attendanceTable tbody");
+                    tbody.innerHTML = '';
+                    data.forEach(student => {
+                        const isChecked = student.status === 'Present' ? 'checked' : '';
+                        tbody.innerHTML += `
+          <tr>
+            <td>${student.name}</td>
+            <td>${student.branch}</td>
+            <td>${student.roll_no}</td>
+            <td class="checkbox-cell">
+              <input type="checkbox" data-roll="${student.roll_no}" ${isChecked} />
+            </td>
+          </tr>`;
+                    });
+                });
+        }
+
+
+        function addStudent() {
+            const name = document.getElementById('studentName').value;
+            const branch = document.getElementById('branch').value;
+            const rollNo = document.getElementById('rollNo').value;
+
+            if (!name || !branch || !rollNo) {
+                alert('Please fill out all fields!');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('branch', branch);
+            formData.append('roll_no', rollNo);
+
+            fetch('add_student_mpmc.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(res => res.text())
+                .then(msg => {
+                    alert(msg);
+                    fetchStudents(); // Reload student list
+                });
+
+            // Clear input fields
+            document.getElementById('studentName').value = '';
+            document.getElementById('branch').value = '';
+            document.getElementById('rollNo').value = '';
+        }
+
+        function submitAttendance() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const data = [];
+
+            checkboxes.forEach(cb => {
+                data.push({
+                    roll_no: cb.dataset.roll,
+                    status: cb.checked ? 'Present' : 'Absent'
+                });
+            });
+
+            fetch('mark_attendance_mpmc.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+                .then(res => res.text())
+                .then(msg => alert(msg));
+        }
+
+        window.onload = fetchStudents;
+
+        function back() {
+            window.location.href = 'index.html';
+        }
+
+    </script>
+
+</body>
+
+</html>

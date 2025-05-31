@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <img src="ABGI_logo.png" alt="">
+        <div class="college_name">
+            <h1>AMAN BHALLA INSTITUTE OF ENGINEERING & TECHNOLOGY, KOTLI</h1>
+            <h2>Attendance Management System</h2>
+        </div>
+    </header>
+
+    <section class="about">
+        <h1>ABOUT</h1>
+        <div class="about-content">
+            <img src="IMG_20250530_13393660.jpg" alt="">
+            <p>Our Online Attendance System is designed to simplify and modernize the way attendance is managed in
+                college. By replacing traditional paper-based methods with a digital solution, we aim to save time,
+                reduce errors, and provide real-time tracking of student attendance.
+                <br><br>
+                This system allows faculty to mark attendance with just a few clicks. Admins can generate detailed
+                reports and analytics to monitor overall participation and performance.
+                <br><br>
+                With a user-friendly interface and secure login system, our platform ensures convenience, accuracy, and
+                data security for everyone involved.
+                <br><br>
+                Empowering institutions with smart solutions — one attendance at a time.
+            </p>
+        </div>
+        <hr>
+    </section>
+
+
+    <section class="faculty-login">
+        <h1>FACULTY LOGIN</h1>
+        <div class="login">
+            <div class="login-container">
+                <p>Welcome to the Faculty Login Portal.
+                    <br><br>
+                    This secure login system allows faculty members to access their dashboard and mark daily attendance. Simply enter your Faculty ID and Password to proceed. You can mark and manage student attendance, View attendance history of that day.
+                    <br><br>
+                    Please ensure your login credentials are kept confidential. If you face any issues logging in,
+                    contact
+                    the system administrator.
+                    <br><br>
+                    Empowering faculty with efficient tools for better classroom management.
+                </p>
+            </div>
+            <div class="login-container">
+
+                <h2>LOGIN</h2><br>
+
+                <form action="login.html" id="login-form">
+                    <label for="username">Username</label><br>
+                    <input type="text" name="username" id="username" required><br><br>
+
+                    <label for="password">Password</label><br>
+                    <input type="password" name="password" id="password" required>
+
+                    <button type="submit">Login</button>
+                    <p id="error-msg">Incorrect password. Try again.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-media">
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-x-twitter"></i>
+        </div>
+        <p>Design & Developed by <span style="color: rgb(246, 203, 147); text-decoration: underline;">VIJAY SHARMA</span> </p>
+        <p>Copyright <i class="fa-regular fa-copyright"></i> 2025 All rights reserved</p>
+        
+    </footer>
+
+
+
+
+    <script>
+        let login_form = document.getElementById('login-form');
+        let error_msg = document.getElementById('error-msg');
+
+        login_form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // const validUser = "palvi123";
+            // const validPass = "palvi@123";
+
+            if (username === "palvi123" && password === "palvi@123") {
+                alert("Login Successfully !");
+                window.location.href = "palvi.html";
+            } else if (username === "suman123" && password === "suman@123") {
+                alert("Login Successfully !");
+                window.location.href = "suman.html";
+            } else if (username === "naveen123" && password === "naveen@123") {
+                alert("Login Successfully !");
+                window.location.href = "naveen.html";
+            } else {
+                error_msg.style.display = 'block';
+                alert("Incorrect password!")
+            }
+
+
+        });
+    </script>
+</body>
+
+</html>
